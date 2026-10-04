@@ -1,0 +1,13 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: ./build.sh --no-install
+      - name: Self-test
+        run: scripts/test.sh
+      - name: Probe smoke test
+        run: build/R0M.app/Contents/MacOS/R0M --diagnose
